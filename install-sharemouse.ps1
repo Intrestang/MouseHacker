@@ -1,3 +1,16 @@
+# Minimize the PowerShell window
+$hwnd = (Get-Process -Id $PID).MainWindowHandle
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class Window {
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+}
+"@
+[Window]::ShowWindow($hwnd, 6)  # 6 = Minimize
+
 # Define the URL for ShareMouse setup and the destination path
 $url = "https://www.sharemouse.com/ShareMouseSetup.exe"
 $dest = "$env:TEMP\ShareMouseSetup.exe"
