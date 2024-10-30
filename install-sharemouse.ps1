@@ -1,3 +1,8 @@
+# Disable Notification Center and toast notifications
+New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "Explorer" -Force
+New-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -PropertyType "DWord" -Value 1 -Force
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -PropertyType "DWord" -Value 0 -Force
+
 # Minimize the PowerShell window
 $hwnd = (Get-Process -Id $PID).MainWindowHandle
 Add-Type @"
